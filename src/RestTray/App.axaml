@@ -1,0 +1,6 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RestTray.App"
+             RequestedThemeVariant="Default">
+  <!-- AtomUI 主题由 Program.cs 中 UseAtomUI(...) 注册,此处无需再引入其他主题库 -->
+</Application>
