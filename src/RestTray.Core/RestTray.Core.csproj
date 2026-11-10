@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- 核心逻辑库:不依赖任何 UI 框架,方便未来被 ASP.NET Core 等其他宿主复用 -->
+  </PropertyGroup>
+
+</Project>
