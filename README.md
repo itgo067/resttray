@@ -23,6 +23,7 @@ src/RestTray/             Avalonia 12 + AtomUI 桌面应用(托盘 + 设置窗�
   Tray/                   TrayIcon 与右键菜单、tooltip 刷新
   Settings/               AtomUI 设置窗口
 tests/RestTray.Core.Tests/ 状态机单元测试(xunit,虚拟时钟注入,不依赖真实等待)
+tests/RestTray.UiTests/   Headless UI 截图测试(Avalonia.Headless + xunit v3,真实 Skia 渲染,产物见下方截图)
 ```
 
 ## 构建
@@ -47,6 +48,20 @@ Windows 发布:
 dotnet publish src/RestTray/RestTray.csproj -c Release -f net10.0-windows10.0.17763.0 \
     -r win-x64 --self-contained -o artifacts/win-x64
 ```
+
+## 界面截图
+
+以下截图由 `tests/RestTray.UiTests` 在无显示环境下通过 Avalonia Headless(真实 Skia 渲染)自动生成,每次 `dotnet test` 都会刷新,保证与当前 UI 一致。
+
+默认配置:
+
+![设置窗口(默认配置)](docs/screenshots/settings-window-default.png)
+
+自定义配置(间隔 90 分钟、睡觉提醒 22:15 等):
+
+![设置窗口(自定义配置)](docs/screenshots/settings-window-custom.png)
+
+> 托盘图标与右键菜单由操作系统原生渲染,headless 环境无法截取,故未收录。
 
 ## 说明与已知限制
 

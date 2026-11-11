@@ -2,4 +2,5 @@
   <Project Path="src/RestTray.Core/RestTray.Core.csproj" />
   <Project Path="src/RestTray/RestTray.csproj" />
   <Project Path="tests/RestTray.Core.Tests/RestTray.Core.Tests.csproj" />
+  <Project Path="tests/RestTray.UiTests/RestTray.UiTests.csproj" />
 </Solution>

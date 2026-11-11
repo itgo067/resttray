@@ -1,9 +1,6 @@
 using AtomUI;
 using AtomUI.Desktop.Controls;
-using AtomUI.Localization;
-using AtomUI.Theme;
 using Avalonia;
-using ReactiveUI.Avalonia;
 
 namespace RestTray;
 
@@ -27,18 +24,9 @@ internal static class Program
     public static AppBuilder BuildAvaloniaApp()
     {
         return AppBuilder.Configure<App>()
-            .UseReactiveUI(_ => { })
+            // 平台窗口化(X11/Win32/Wayland 自动检测);headless 测试不走这里
             .UseAtomUIPlatformDetect()
-            .WithAtomUIDefaultOptions()
-            .UseAtomUI(builder =>
-            {
-                builder.UseLanguages(
-                    LanguageTags.ZhCN,
-                    [LanguageTags.ZhCN, LanguageTags.EnUS]);
-                builder.WithInitialTheme(IThemeManager.DEFAULT_THEME_ID);
-                builder.UseAlibabaSansFont();
-                builder.UseDesktopControls();
-            })
+            .ConfigureAtomUI()
             .LogToTrace();
     }
 }
