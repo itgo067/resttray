@@ -16,6 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- 空闲检测平台实现的内部成员对平台测试项目可见 -->
+    <InternalsVisibleTo Include="RestTray.Platform.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <ProjectReference Include="..\RestTray.Core\RestTray.Core.csproj" />
   </ItemGroup>
@@ -26,6 +31,8 @@
     <!-- AtomUI:Ant Design 风格控件库,托盘以外的窗口控件统一使用 -->
     <PackageReference Include="AtomUI.Desktop.Controls" Version="6.2.13" />
     <PackageReference Include="ReactiveUI.Avalonia" Version="12.1.6" />
+    <!-- D-Bus 空闲检测(GNOME IdleMonitor / freedesktop ScreenSaver),纯托管实现,不引入原生依赖 -->
+    <PackageReference Include="Tmds.DBus" Version="0.23.0" />
     <!-- Windows Toast 通知,仅 Windows 目标引用 -->
     <PackageReference Condition="'$(TargetFramework)' == 'net10.0-windows10.0.17763.0'"
                       Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />

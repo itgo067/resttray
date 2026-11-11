@@ -67,5 +67,8 @@ dotnet publish src/RestTray/RestTray.csproj -c Release -f net10.0-windows10.0.17
 
 - Windows 专属代码(GetLastInputInfo、Toast)通过 `#if WINDOWS` + `net10.0-windows10.0.17763.0` 目标框架做条件编译隔离,Linux 构建完全不包含 Windows API。
 - 托盘右键菜单由操作系统原生渲染(Avalonia NativeMenu),不参与 AtomUI 主题;AtomUI 样式仅作用于应用内窗口(设置窗口)。
-- 纯 Wayland 且无 XWayland 的环境无法获取空闲时间,此时降级为"始终活跃"并在日志中给出警告。
+- 空闲检测按会话类型走降级链,每步都有日志。Wayland 会话:D-Bus GNOME IdleMonitor(GNOME/Cinnamon)→ D-Bus freedesktop ScreenSaver → Wayland ext-idle-notify(KDE Plasma/wlroots,基于 libwayland P/Invoke)→ XScreenSaver → xprintidle;纯 X11 会话保持 XScreenSaver → xprintidle。全部失败时降级为"始终活跃"并在日志中给出警告。
+  - KDE Plasma(Wayland)的 `org.freedesktop.ScreenSaver.GetSessionIdleTime` 返回 NotSupported(KWin 未实现),由 ext-idle-notify 路径承接。
+  - ext-idle-notify 协议只有"空闲超阈值/恢复活动"事件,无精确查询:空闲起点按事件时刻回推阈值(5 秒)估算,且无法感知应用启动前已有的空闲(低估部分随运行时间收敛)。
+  - 诊断参数 `RestTray --print-idle [观察秒数]`:打印命中的检测方案与空闲秒数,观察模式每 2 秒采样一次。
 - AtomUI 包为 `AtomUI.Desktop.Controls`(6.x 线,支持 .NET 10 / Avalonia 12);旧的 `AtomUI` 包(5.x)仅支持 Avalonia 11,不可混用。
